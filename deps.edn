@@ -42,17 +42,17 @@
   com.github.vertical-blank/sql-formatter   {:mvn/version "2.0.4"}              ; Java SQL formatting library https://github.com/vertical-blank/sql-formatter
   com.google.guava/guava                    {:mvn/version "33.1.0-jre"}         ; dep for BigQuery, Spark, and GA. Require here rather than letting different dep versions stomp on each other — see comments on #9697
   com.fasterxml.jackson.core/jackson-databind
-                                            {:mvn/version "2.17.0"}             ; JSON processor used by snowplow-java-tracker
+  {:mvn/version "2.17.0"}             ; JSON processor used by snowplow-java-tracker
   com.fasterxml.woodstox/woodstox-core      {:mvn/version "6.6.1"}              ; trans dep of commons-codec
   com.h2database/h2                         {:mvn/version "2.1.214"}            ; embedded SQL database
   com.gfredericks/test.chuck                {:mvn/version "0.2.14"}             ; generating strings from regex
   com.snowplowanalytics/snowplow-java-tracker
-                                            {:mvn/version "1.0.1"               ; Snowplow analytics
-                                             :exclusions [com.fasterxml.jackson.core/jackson-databind]}
+  {:mvn/version "1.0.1"               ; Snowplow analytics
+   :exclusions [com.fasterxml.jackson.core/jackson-databind]}
   com.taoensso/nippy                        {:mvn/version "3.4.2"}              ; Fast serialization (i.e., GZIP) library for Clojure
   com.vladsch.flexmark/flexmark             {:mvn/version "0.64.8"}             ; Markdown parsing
   com.vladsch.flexmark/flexmark-ext-autolink
-                                            {:mvn/version "0.64.8"}             ; Flexmark extension for auto-linking bare URLs
+  {:mvn/version "0.64.8"}             ; Flexmark extension for auto-linking bare URLs
   commons-fileupload/commons-fileupload     {:mvn/version "1.5"}                ; ring/ring-core 1.9.6 uses v1.4, but we want 1.5 due to a CVE. When we upgrade to the forthcoming ring/ring-core 1.10.0 we can remove this.
   commons-codec/commons-codec               {:mvn/version "1.16.1"}             ; Apache Commons -- useful codec util fns
   commons-io/commons-io                     {:mvn/version "2.15.1"}             ; Apache Commons -- useful IO util fns
@@ -115,9 +115,9 @@
   org.apache.logging.log4j/log4j-jcl        {:mvn/version "2.23.1"}             ; allows the commons-logging API to work with log4j 2
   org.apache.logging.log4j/log4j-jul        {:mvn/version "2.23.1"}             ; java.util.logging (JUL) -> Log4j2 adapter
   org.apache.logging.log4j/log4j-slf4j2-impl
-                                            {:mvn/version "2.23.1"}             ; allows the slf4j2 API to work with log4j 2
+  {:mvn/version "2.23.1"}             ; allows the slf4j2 API to work with log4j 2
   org.apache.logging.log4j/log4j-layout-template-json
-                                            {:mvn/version "2.23.1"}             ; allows the custom json logging format
+  {:mvn/version "2.23.1"}             ; allows the custom json logging format
   org.apache.poi/poi                        {:mvn/version "5.2.5"}              ; Work with Office documents (e.g. Excel spreadsheets) -- newer version than one specified by Docjure
   org.apache.poi/poi-ooxml                  {:mvn/version "5.2.5"
                                              :exclusions  [org.bouncycastle/bcpkix-jdk15on
@@ -213,7 +213,7 @@
 
  :aliases
  {
-;;; Local Dev & test profiles
+  ;;; Local Dev & test profiles
 
   ;; for local development: start a REPL with
   ;;
@@ -228,9 +228,9 @@
   :dev
   {:extra-deps
    {com.clojure-goes-fast/clj-async-profiler
-                                 {:mvn/version "1.2.0"}                     ; Enables local profiling and heat map generation
+    {:mvn/version "1.2.0"}                     ; Enables local profiling and heat map generation
     com.clojure-goes-fast/clj-memory-meter
-                                 {:mvn/version "0.3.0"}                     ; Enables easy memory measurement
+    {:mvn/version "0.3.0"}                     ; Enables easy memory measurement
     clj-http-fake/clj-http-fake  {:mvn/version "1.0.4"
                                   :exclusions  [slingshot/slingshot]}
     clj-kondo/clj-kondo          {:mvn/version "2024.03.13"}                ; this is not for RUNNING kondo, but so we can hack on custom hooks code from the REPL.
@@ -306,6 +306,7 @@
   :run
   {:main-opts ["-m" "metabase.bootstrap"]
    :jvm-opts  ["-Dmb.run.mode=dev"
+               "-Dmb.db.connection.uri=mysql://root:123456@localhost:3306/metabase"
                "-Djava.awt.headless=true"]}                   ; prevent Java icon from randomly popping up in macOS dock
 
   ;; alias for CI-specific options.
@@ -398,7 +399,7 @@
     "modules/drivers/sqlserver/test"
     "modules/drivers/vertica/test"]}
 
-;;; Linters
+  ;;; Linters
 
   ;; clojure -M:ee:drivers:check
   ;;
@@ -542,7 +543,7 @@
   {:deps       {io.github.weavejester/cljfmt {:git/tag "0.11.2", :git/sha "fb26b22f569724b05c93eb2502592dfc2de898c3"}}
    :ns-default cljfmt.tool}
 
-;;; building Uberjar, build and release scripts
+  ;;; building Uberjar, build and release scripts
 
   :build
   {:extra-paths
@@ -632,7 +633,7 @@
   {:exec-fn   mb.hawk.core/find-and-run-tests-cli
    :exec-args {:only ["bin/build/test"]}}
 
-;;; Other misc convenience aliases
+  ;;; Other misc convenience aliases
 
   ;; Profile Metabase start time with clojure -M:profile
   :profile
@@ -732,5 +733,5 @@
 
 
 
-  ;; TODO -- consider creating an alias that includes the `./bin` build-drivers & release code as well so we can work
-  ;; on them all from a single REPL process.
+;; TODO -- consider creating an alias that includes the `./bin` build-drivers & release code as well so we can work
+;; on them all from a single REPL process.
